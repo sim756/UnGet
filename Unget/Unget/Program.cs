@@ -22,6 +22,7 @@ namespace Unget
                         "*.*", SearchOption.TopDirectoryOnly);
 
                 int revomalDirCount = 0;
+                long totalDirSize = 0;
 
                 Parallel.For(0, dirs.Length, i =>
                 {
@@ -37,8 +38,11 @@ namespace Unget
                         {
                             try
                             {
+                                long dirSize = Directory.GetFiles(cachedDirs[j], "*", SearchOption.AllDirectories).Sum(t => (new FileInfo(t).Length));
+                                Interlocked.Add(ref totalDirSize, dirSize);
+
                                 Directory.Delete(cachedDirs[j], true);
-                                Console.WriteLine($"[DEL] {cachedDirs[j]}");
+                                Console.WriteLine($"[DEL] {$"{((double)dirSize / 1024.0 / 1024.0):F2}",10} \t{cachedDirs[j]}".Replace(@"C:\Users\sim756\.nuget\packages", ""));
                             }
                             catch (Exception exception)
                             {
@@ -48,7 +52,7 @@ namespace Unget
                     }
                 });
 
-                Console.WriteLine($"\nTotal {revomalDirCount} folder(s) are deleted from cache.");
+                Console.WriteLine($"\nTotal {revomalDirCount} folder(s) of {((double)totalDirSize / 1024.0 / 1024.0):F2} MB are deleted from cache.");
 
                 Console.ReadKey(false);
             }

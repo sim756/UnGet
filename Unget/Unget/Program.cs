@@ -41,7 +41,7 @@ namespace Unget
                                 long dirSize = Directory.GetFiles(cachedDirs[j], "*", SearchOption.AllDirectories).Sum(t => (new FileInfo(t).Length));
                                 Interlocked.Add(ref totalDirSize, dirSize);
 
-                                //Directory.Delete(cachedDirs[j], true);
+                                Directory.Delete(cachedDirs[j], true);
                                 Console.WriteLine($"[DEL] {$"{((double)dirSize / 1024.0 / 1024.0):F2} MB", 13} \t{cachedDirs[j]}");
                             }
                             catch (Exception exception)

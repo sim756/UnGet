@@ -56,6 +56,7 @@ namespace Unget
                 double deletedFileSizeGigaBytes = ((double)totalDirSize / 1024.0 / 1024.0 / 1024.0);
                 Console.WriteLine($"\nTotal {revomalDirCount} folder(s) of {deletedFileSizeGigaBytes:F2} GB (or, {deletedFileSizeMegaBytes:F2} MB) are deleted from cache.");
 
+                Console.WriteLine("\nPress any key to exit...");
                 Console.ReadKey(false);
             }
             catch (Exception exception)

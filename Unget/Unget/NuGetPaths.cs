@@ -8,7 +8,8 @@ namespace Unget
     {
         public static readonly Dictionary<OSPlatform, string> NuGetCachePaths = new Dictionary<OSPlatform, string>()
         {
-            {OSPlatform.Windows, Environment.ExpandEnvironmentVariables("%UserProfile%\\.nuget\\packages")},
+            //{OSPlatform.Windows, Environment.ExpandEnvironmentVariables("%UserProfile%\\.nuget\\packages")},
+            {OSPlatform.Windows, Environment.GetEnvironmentVariable("NUGET_PACKAGES")},
             {OSPlatform.Linux, "~/.nuget/packages"},
             {OSPlatform.OSX, "~/.nuget/packages"}
         };
